@@ -1,12 +1,10 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import PrivateLayout from "views/layout/private";
 
+import PrivateLayout from "views/layout/private";
 import PublicLayout from "views/layout/public";
 import PrivateRoutes from "views/routes/private";
 import PublicRoutes from "views/routes/public";
-
-// import PublicLayout from "views/layout/public";
 
 function App() {
   return (
