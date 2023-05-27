@@ -86,7 +86,7 @@ const UpdatePassword = () => {
                   <input
                     placeholder="Password"
                     name="new_password"
-                    type="new_password"
+                    type="password"
                     onChange={formik.handleChange}
                     value={formik.values.new_password}
                     className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
