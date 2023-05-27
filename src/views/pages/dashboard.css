@@ -37,12 +37,12 @@
   border-radius: 0px 10px 10px 0px;
 }
 
-input[type="text"] {
+/* input[type="text"] {
   width: 80%;
   margin-inline: 10%;
   margin-top: 10px;
-  /* border: none; */
-}
+   border: none;
+} */
 
 .inside-warraper {
   display: flex;

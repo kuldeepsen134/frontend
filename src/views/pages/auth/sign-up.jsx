@@ -37,10 +37,7 @@ const SignUp = () => {
 
     onSubmit: (values) => {
       dispatch(register(values)).unwrap().then((data) => {
-console.log(data);
-
-        localStorage.setItem(process.env.REACT_APP_TOKEN, data.token)
-        data.token && nevigate(path.dashboard)
+        data.error === false && nevigate(path.dashboard)
       })
     }
 
@@ -66,11 +63,11 @@ console.log(data);
 
         <div className="flex justify-center self-center  z-10">
 
-          <div className="p-12 bg-white mx-auto rounded-3xl w-96 ">
+          <div className="p-4 bg-white mx-auto rounded-3xl w-96 ">
             <div className="mb-7">
               <h3 className="font-semibold text-2xl text-gray-800">Sign Up </h3>
               <p className="text-gray-400">You have an account? <Link to="/login"
-                className="text-sm text-purple-700 hover:text-purple-700">Back</Link></p>
+                className="text-sm text-purple-700 hover:text-purple-700">Login</Link></p>
             </div>
 
             <form onSubmit={formik.handleSubmit}>
@@ -135,15 +132,7 @@ console.log(data);
                       <span className="text-red-500">{formik.errors.password}</span> : ''
                   }
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="text-sm ml-auto">
-                    <Link to="/account-recovery/initiate" className="text-purple-700 hover:text-purple-600">
-                      Forgot your password?
-                    </Link>
-                  </div>
-                </div>
-
+                
                 <div>
                   <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
                     Sign in
