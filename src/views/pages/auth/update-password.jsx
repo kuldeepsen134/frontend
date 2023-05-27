@@ -1,17 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate, } from "react-router-dom";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
 import { svgEyes, svgGoogle } from "utlis/svg";
+import { resetPassword } from "redux/slice/session/session.slice";
+// import { path } from "utlis/endpoint";
 
 const UpdatePassword = () => {
+  const nevigate = useNavigate()
+  const location = useLocation()
+  
+  const query = new URLSearchParams(location.search)
+  
+  const token = query.get('token')
+  
+  console.log(nevigate,token);
   const [initialData] = useState({
     new_password: '',
     confirm_password: '',
     token: ''
   })
+
+  const dispatch = useDispatch()
+
+
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
@@ -29,6 +44,11 @@ const UpdatePassword = () => {
 
     onSubmit: (values) => {
       console.log('values', values);
+      values.token = token
+      dispatch(resetPassword(values)).unwrap().then((res) => {
+        console.log('res',res);
+        // !res.error && nevigate(path.logIn)
+      })
     }
 
   })

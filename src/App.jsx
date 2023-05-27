@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import PrivateLayout from "views/layout/private";
@@ -7,11 +8,12 @@ import PrivateRoutes from "views/routes/private";
 import PublicRoutes from "views/routes/public";
 
 function App() {
+  const { isUserLoggedIn } = useSelector((state) => state.session)
   return (
     <BrowserRouter>
       <Suspense>
         <Routes>
-          <Route path="/app" element={<PrivateLayout />} >
+          <Route path="/app" element={isUserLoggedIn ? <PrivateLayout /> : <Navigate to='/login' />} >
             <Route index element={<Navigate to={`/app/deshboard`} />} />
             {PrivateRoutes.map((route, i) => {
               return (

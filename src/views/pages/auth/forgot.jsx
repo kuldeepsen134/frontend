@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
 import { svgGoogle } from "utlis/svg";
+import { forgotPassword } from "redux/slice/session/session.slice";
 
-const RecoverPassword = () => {
+const RecoverPassword = () => {  
+    const dispatch = useDispatch()
+
   const [initialData] = useState({
     email: '',
   })
+  
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
@@ -19,7 +24,7 @@ const RecoverPassword = () => {
     }),
 
     onSubmit: (values) => {
-      console.log('values', values);
+      dispatch(forgotPassword(values))
     }
 
   })

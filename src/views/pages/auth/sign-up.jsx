@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
+import { path } from "utlis/endpoint";
 import { svgEyes, svgGoogle } from "utlis/svg";
-import { Link } from "react-router-dom";
+
+import { register } from "redux/slice/session/session.slice";
 
 const SignUp = () => {
+  const nevigate = useNavigate()
+
+  const dispatch = useDispatch()
+
   const [initialData] = useState({
     first_name: '',
     last_name: "",
@@ -28,7 +36,12 @@ const SignUp = () => {
     }),
 
     onSubmit: (values) => {
-      console.log('values', values);
+      dispatch(register(values)).unwrap().then((data) => {
+console.log(data);
+
+        localStorage.setItem(process.env.REACT_APP_TOKEN, data.token)
+        data.token && nevigate(path.dashboard)
+      })
     }
 
   })

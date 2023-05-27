@@ -1,16 +1,23 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
+import { path } from "utlis/endpoint";
+import { login } from "redux/slice/session/session.slice";
+
 import { svgEyes, svgGoogle } from "utlis/svg";
-import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  const nevigate = useNavigate()
   const [initialData] = useState({
     email: '',
     password: ''
   })
+
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
@@ -23,8 +30,10 @@ const SignIn = () => {
       ),
     }),
 
-    onSubmit: (values) => {
-      console.log('values', values);
+    onSubmit: async (values) => {
+      let data = await dispatch(login(values))
+      console.log('data', data);
+      data.payload.token && nevigate(path.dashboard)
     }
 
   })

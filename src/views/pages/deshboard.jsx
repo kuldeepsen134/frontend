@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 
 import './dashboard.css'
 import { Link } from "react-router-dom";
 import { AppHeader } from "views/components";
+import instance from "redux/axios/axios";
 const Dashboard = () => {
+
+  useEffect(() => {
+    instance.get('users').then((res) => {
+      console.log('res', res);
+    })
+  }, [])
+
+
   return (
     <>
       <div className=" wrapper" style={{ background: '' }}>

@@ -1,26 +1,23 @@
+/* eslint-disable no-undef */
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const instance = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_ENDPOINT}`,
-  timeout: 1000,
-  headers: { 'X-Custom-Header': 'foobar' }
+  withCredentials: true
 });
 
-instance.interceptors.request.use((request) => {
-  request.headers.Authorization = `${process.env.REACT_APP_TOKEN}`
-  return request
-})
 
 instance.interceptors.response.use(
-  (results) => {
-    return results.data
-  },
-  (error) => {
-    if (error.response.status === 401) {
-      localStorage.clear()
-      window.location.href = '/login'
+  response => response.data,
+  async (error) => {
+    console.log(error);
+    toast.error(error?.response?.data.message)
+    if (error?.response?.status === 401) {
+      window.location.href = "/login"
     }
+    return Promise.reject(error);
+  })
 
-    return Promise.reject(error)
-  },
-)
+
+export default instance
