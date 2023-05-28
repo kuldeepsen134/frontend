@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Suspense>
         <Routes>
-          <Route path="/app" element={!isUserLoggedIn ? <PrivateLayout /> : <Navigate to='/login' />} >
+          <Route path="/app" element={isUserLoggedIn ? <PrivateLayout /> : <Navigate to='/login' />} >
             <Route index element={<Navigate to={`/app/deshboard`} />} />
             {PrivateRoutes.map((route, i) => {
               return (

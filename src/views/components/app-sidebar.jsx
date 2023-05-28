@@ -23,7 +23,7 @@ const AppSidebar = () => {
   }, {
     name: 'Blance',
     svg: <BsChatRightText />,
-    path: '/app/blance'
+    path: '#'
 
   },
   ]

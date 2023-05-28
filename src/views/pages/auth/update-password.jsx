@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate, } from "react-router-dom";
+import { Link, useLocation,  } from "react-router-dom";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
 import { svgEyes, svgGoogle } from "utlis/svg";
 import { resetPassword } from "redux/slice/session/session.slice";
-// import { path } from "utlis/endpoint";
 
 const UpdatePassword = () => {
-  const nevigate = useNavigate()
   const location = useLocation()
   
   const query = new URLSearchParams(location.search)
   
   const token = query.get('token')
   
-  console.log(nevigate,token);
+  const [show, setShow] = useState(false)
+
   const [initialData] = useState({
     new_password: '',
     confirm_password: '',
@@ -86,13 +85,15 @@ const UpdatePassword = () => {
                   <input
                     placeholder="Password"
                     name="new_password"
-                    type="password"
+                    type={show ? "text" : 'password'}
                     onChange={formik.handleChange}
                     value={formik.values.new_password}
                     className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
                   />
                   <div className="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
-                    {svgEyes()}
+                  <p onClick={() => setShow(show ? false : true)}>
+                      {svgEyes()}
+                    </p>
                   </div>
                   {
                     formik.errors.new_password && formik.touched.new_password ?

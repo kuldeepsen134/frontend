@@ -15,6 +15,8 @@ const SignUp = () => {
 
   const dispatch = useDispatch()
 
+  const [show, setShow] = useState(false)
+
   const [initialData] = useState({
     first_name: '',
     last_name: "",
@@ -119,20 +121,22 @@ const SignUp = () => {
                   <input
                     name="password"
                     placeholder="Password"
-                    type="password"
+                    type={show ? "text" : 'password'}
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     className="text-sm px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
                   />
                   <div className="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
-                    {svgEyes()}
+                    <p onClick={() => setShow(show ? false : true)}>
+                      {svgEyes()}
+                    </p>
                   </div>
                   {
                     formik.errors.password && formik.touched.password ?
                       <span className="text-red-500">{formik.errors.password}</span> : ''
                   }
                 </div>
-                
+
                 <div>
                   <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
                     Sign in

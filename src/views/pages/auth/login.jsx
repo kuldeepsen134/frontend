@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { login } from "redux/slice/session/session.slice";
 
 import { svgEyes, svgGoogle } from "utlis/svg";
+import { path } from "utlis/endpoint";
 
 const SignIn = () => {
   const nevigate = useNavigate()
@@ -20,8 +21,7 @@ const SignIn = () => {
   })
 
   const dispatch = useDispatch()
-  const { loggedInUser, loading } = useSelector((state) => state.session)
-  console.log(loggedInUser, loading);
+  const {  loading } = useSelector((state) => state.session)
 
   const formik = useFormik({
     initialValues: initialData,
@@ -35,13 +35,9 @@ const SignIn = () => {
       ),
     }),
 
-    onSubmit: async (values) => {
-      await dispatch(login(values))
-      if (loggedInUser.token) {
-        nevigate('/app/dashboard')
-      }
+    onSubmit: (values) => {
+      dispatch(login(values)).unwrap().then(() => { nevigate(path.dashboard) })
     }
-
   })
 
   return (
@@ -94,7 +90,7 @@ const SignIn = () => {
                   <input
                     name="password"
                     placeholder="Password"
-                    type={show ? "password" : 'text'}
+                    type={show ? "text" : 'password'}
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
@@ -120,7 +116,7 @@ const SignIn = () => {
 
                 <div>
                   <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-                    Sign in
+                    {loading ? 'loading...' : 'Signin'}
                   </button>
                 </div>
 
