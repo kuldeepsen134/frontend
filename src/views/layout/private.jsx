@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col,  Row } from 'react-bootstrap'
 import { Outlet } from 'react-router-dom'
 import { AppHeader, AppSidebar } from 'views/components'
 
@@ -8,7 +8,7 @@ import { AppHeader, AppSidebar } from 'views/components'
 const PrivateLayout = () => {
   return (
     <>
-      <Container fluid>
+      {/* <Container fluid> */}
         <Row>
           <Col xs={2}>
             <AppSidebar />
@@ -18,7 +18,7 @@ const PrivateLayout = () => {
             <Outlet />
           </Col>
         </Row>
-      </Container>
+      {/* </Container> */}
       {/* <AppFooter /> */}
     </>
   )

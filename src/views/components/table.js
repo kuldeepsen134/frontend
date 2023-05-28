@@ -5,9 +5,9 @@ import { AiFillEye } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const TableList = () => {
+const TableList = (userData) => {
   const [show, setShow] = useState(false);
-
+  console.log(userData);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true)
@@ -22,7 +22,7 @@ const TableList = () => {
             <Table style={{ background: '#fff', borderRadius: '10px' }} responsive>
               <thead style={{ background: 'aliceblue' }}>
                 <tr>
-                  <th>#</th>
+                  {/* <th>#</th> */}
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
@@ -32,34 +32,31 @@ const TableList = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>23/5/23</td>
-                  <td>23/5/23</td>
-                  <td className="text-center">
-                    <Link to='/' className="d-inline-block mx-2">
-                      <AiFillEye />
-                    </Link>
-                    <BsFillTrashFill onClick={handleShow} className="d-inline-block text-danger mx-2" >
 
-                    </BsFillTrashFill>
+                {userData?.userListData?.map((item, i) => {
+                    console.log(item);
+                    return (
+                      <tr key={i}>
+                        {/* <td>{item._id}</td> */}
+                        <td>{item.first_name}</td>
+                        <td>{item.last_name}</td>
+                        <td>{item.email}</td>
+                        <td>{item.createdAt}</td>
+                        <td>{item.updatedAt}</td>
 
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+
+                        <td className="text-center">
+                          <Link to='/' className="d-inline-block mx-2">
+                            <AiFillEye />
+                          </Link>
+                          <BsFillTrashFill onClick={handleShow} className="d-inline-block text-danger mx-2" >
+
+                          </BsFillTrashFill>
+
+                        </td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             </Table>
 

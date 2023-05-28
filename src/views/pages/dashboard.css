@@ -1,8 +1,15 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
 .left-image {
   min-height: 100vh;
   border: 1px solid;
   border-radius: 10px 0px 0px 10px;
-  background: #046673;
+  /* background: #046673; */
+  background-image: linear-gradient(#000000f6
+  ,#531F85);
   /* background-color: rgb(88 28 135 / var(--tw-bg-opacity)); */
 }
 
@@ -13,11 +20,15 @@
   padding: 10px;
   /* background: red; */
   color: #fff;
-  background: #06505d;
+  /* background: #06505d; */
+  /* background: #7E22CE; */
+  background-image: linear-gradient(#000000f6
+  ,#531F85);
+ 
 }
 
 .logout {
-  margin-top: 40vh;
+  margin-top: 39vh;
 }
 
 .left-box-mange {

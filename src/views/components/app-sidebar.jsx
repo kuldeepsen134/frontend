@@ -50,8 +50,9 @@ const AppSidebar = () => {
     <>
 
       <div className="left-image">
-        <div className="image-box my-3">
-          <h2>Start Cli</h2>
+        <div className="image-box my-2">
+          <img src="/assets/images/logo.png" className="w-25 mx-2"  />
+
         </div>
 
         {
@@ -87,7 +88,7 @@ const AppSidebar = () => {
               })
             }
 
-            <div className={`d-flex justify-content-start left-box-mange-logout`}>
+            <div className={`d-flex justify-content-start left-box-mange-active mt-1`}>
               <FiLogOut className="mt-1" />
               <a href="/login" className="mx-3" onClick={() => dispatch(logOut())}>Logout</a>
             </div>

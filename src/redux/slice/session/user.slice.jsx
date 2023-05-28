@@ -14,8 +14,7 @@ export const createUser = createAsyncThunk('user/create', async (params, { rejec
   }
 })
 
-export const userList = createAsyncThunk('user/list', async (params, { rejectWithValue }) => {
-  console.log('mdsfnj');
+export const userList = createAsyncThunk('users/list', async (params, { rejectWithValue }) => {
   try {
     return await instance.get(`users`)
   } catch (error) {
@@ -57,6 +56,7 @@ const userSlice = createSlice({
       state.userlistData = {}
     },
     [userList.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.loading = false
       state.userlistData = action.payload
 

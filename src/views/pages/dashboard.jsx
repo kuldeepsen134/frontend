@@ -1,18 +1,21 @@
-import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 
 import './dashboard.css'
-// import { userList } from "redux/slice/session/user.slice";
 import { OverView, TableList } from "views/components";
+import { useDispatch, useSelector } from "react-redux";
+import { userList } from "redux/slice/session/user.slice";
 
 const Dashboard = () => {
-  // const dispatch = useDispatch()
-  // const { userListData } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const { userListData } = useSelector((state) => state.user)
+  const [userData,setUserData]= useState({})
 
-  // console.log('userListData', userListData);
+
   useEffect(() => {
-    // dispatch(userList()) 
-  }, [])
+    dispatch(userList()).unwrap().then((res)=>{
+      setUserData(res)
+    })
+  }, [userListData])
 
   const data = [{
     name: 'Account',
@@ -30,7 +33,7 @@ const Dashboard = () => {
   return (
     <>
       <OverView data={data} />
-      <TableList />
+      <TableList userListData={userData.data} />
     </>
   )
 }
