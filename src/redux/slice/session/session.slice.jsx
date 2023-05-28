@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import instance from 'redux/axios/axios'
 
 const initialState = {
+  loading: false,
   loggedInUser: {},
   isUserLoggedIn: document.cookie ? true : false
 }
@@ -55,7 +56,7 @@ const sessionSlice = createSlice({
   reducers: {},
   extraReducers: {
     [login.pending]: (state,) => {
-      state.loading = false
+      state.loading = true
       state.isUserLoggedIn = false
     },
     [login.fulfilled]: (state, action) => {

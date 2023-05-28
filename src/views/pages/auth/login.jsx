@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 
-import { path } from "utlis/endpoint";
+// import { path } from "utlis/endpoint";
 import { login } from "redux/slice/session/session.slice";
 
 import { svgEyes, svgGoogle } from "utlis/svg";
 
 const SignIn = () => {
   const nevigate = useNavigate()
+
+  const [show, setShow] = useState(false)
   const [initialData] = useState({
     email: '',
     password: ''
   })
 
   const dispatch = useDispatch()
+  const { loggedInUser, loading } = useSelector((state) => state.session)
+  console.log(loggedInUser, loading);
+
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
@@ -31,9 +36,10 @@ const SignIn = () => {
     }),
 
     onSubmit: async (values) => {
-      let data = await dispatch(login(values))
-      console.log('data', data);
-      data.payload.token && nevigate(path.dashboard)
+      await dispatch(login(values))
+      if (loggedInUser.token) {
+        nevigate('/app/dashboard')
+      }
     }
 
   })
@@ -88,13 +94,15 @@ const SignIn = () => {
                   <input
                     name="password"
                     placeholder="Password"
-                    type="password"
+                    type={show ? "password" : 'text'}
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
                   />
                   <div className="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
-                    {svgEyes()}
+                    <p onClick={() => setShow(show ? false : true)}>
+                      {svgEyes()}
+                    </p>
                   </div>
                   {
                     formik.errors.password && formik.touched.password ?
