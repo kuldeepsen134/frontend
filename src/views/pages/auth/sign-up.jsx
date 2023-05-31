@@ -39,7 +39,7 @@ const SignUp = () => {
 
     onSubmit: (values) => {
       dispatch(register(values)).unwrap().then((data) => {
-        data.error === false && nevigate(path.dashboard)
+        data.error === false && nevigate(path.logIn)
       })
     }
 

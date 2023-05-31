@@ -19,15 +19,15 @@ const Dashboard = () => {
 
   const data = [{
     name: 'Account',
-    amount: '1111111'
+    amount: '1111'
   },
   {
-    name: 'Account',
-    amount: '1111111'
+    name: 'Pending',
+    amount: '110'
   },
   {
-    name: 'Account',
-    amount: '1111111'
+    name: 'Total',
+    amount: '50'
   }]
 
   return (
