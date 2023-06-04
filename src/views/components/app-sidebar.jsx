@@ -23,7 +23,7 @@ const AppSidebar = () => {
   }, {
     name: 'Blance',
     svg: <BsChatRightText />,
-    path: '#'
+    path: '/app/balance'
 
   },
   ]
@@ -51,9 +51,17 @@ const AppSidebar = () => {
 
       <div className="left-image">
         <div className="image-box my-2">
-          <img src="/assets/images/logo.png" className="w-25 mx-2"  />
 
+          <Link to={'/app/dashboard'}>
+            <img src="/assets/images/logo.png" className="w-25 mx-2" />
+          </Link>
         </div>
+        <h1 style={{
+          color: 'white', marginLeft: '80px',
+          top: '30px',
+          bottom: '0',
+          position: 'absolute'
+        }}>Share Shield</h1>
 
         {
           menu.map((item, i) => {

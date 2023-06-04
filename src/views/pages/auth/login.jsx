@@ -21,7 +21,7 @@ const SignIn = () => {
   })
 
   const dispatch = useDispatch()
-  const {  loading } = useSelector((state) => state.session)
+  const { loading } = useSelector((state) => state.session)
 
   const formik = useFormik({
     initialValues: initialData,
@@ -127,7 +127,8 @@ const SignIn = () => {
                 </div>
 
                 <div className="flex justify-center gap-5 w-full ">
-                  <button type="submit" className="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
+                  <button type="submit"
+                    className="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
                     {svgGoogle()}
                     <span>Google</span>
                   </button>

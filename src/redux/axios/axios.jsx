@@ -8,16 +8,17 @@ const instance = axios.create({
 });
 
 
-instance.interceptors.response.use(
-  response => response.data,
-  async (error) => {
-    console.log(error);
-    toast.error(error?.response?.data.message)
-    if (error?.response?.status === 401) {
-      window.location.href = "/login"
-    }
-    return Promise.reject(error);
-  })
+instance.interceptors.response.use(response => response.data, async (error) => {
+
+  console.log('error>>>>>>>>>>>>>>', error);
+
+  toast.error(error?.response?.data.message)
+
+  if (error?.response?.status === 401) {
+    window.location.href = "/login"
+  }
+  return Promise.reject(error);
+})
 
 
 export default instance

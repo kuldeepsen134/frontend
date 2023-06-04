@@ -9,6 +9,8 @@ import { path } from "utlis/endpoint";
 import { svgEyes, svgGoogle } from "utlis/svg";
 
 import { register } from "redux/slice/session/session.slice";
+import instance from "redux/axios/axios";
+// import { googleSigIn } from "redux/slice/session/user.slice";
 
 const SignUp = () => {
   const nevigate = useNavigate()
@@ -42,6 +44,13 @@ const SignUp = () => {
         data.error === false && nevigate(path.logIn)
       })
     }
+  })
+
+
+  const handleClick = (() => {
+    instance.get('/google').then(data=>{
+      console.log('ddddddd',data);
+    })
 
   })
 
@@ -72,97 +81,100 @@ const SignUp = () => {
                 className="text-sm text-purple-700 hover:text-purple-700">Login</Link></p>
             </div>
 
-            <form onSubmit={formik.handleSubmit}>
 
-              <div className="space-y-6">
-                <div className="">
-                  <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                    type="text"
-                    placeholder="First Name"
-                    name="first_name"
-                    value={formik.values.first_name}
-                    onChange={formik.handleChange}
-                  />
-                  {
-                    formik.errors.first_name && formik.touched.first_name ?
-                      <span className="text-red-500">{formik.errors.first_name}</span> : ''
-                  }
-                </div>
-                <div className="">
-                  <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                    type="text"
-                    placeholder="Last Name"
-                    name="last_name"
-                    value={formik.values.last_name}
-                    onChange={formik.handleChange}
-                  />
-                  {
-                    formik.errors.last_name && formik.touched.last_name ?
-                      <span className="text-red-500">{formik.errors.last_name}</span> : ''
-                  }
-                </div>
-                <div className="">
-                  <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                  />
-                  {
-                    formik.errors.email && formik.touched.email ?
-                      <span className="text-red-500">{formik.errors.email}</span> : ''
-                  }
-                </div>
-
-                <div className="relative"
-                //  x-data="{ show: true }"
-                >
-                  <input
-                    name="password"
-                    placeholder="Password"
-                    type={show ? "text" : 'password'}
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    className="text-sm px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
-                  />
-                  <div className="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
-                    <p onClick={() => setShow(show ? false : true)}>
-                      {svgEyes()}
-                    </p>
-                  </div>
-                  {
-                    formik.errors.password && formik.touched.password ?
-                      <span className="text-red-500">{formik.errors.password}</span> : ''
-                  }
-                </div>
-
-                <div>
-                  <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-                    Sign in
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-center space-x-2 my-5">
-                  <span className="h-px w-16 bg-gray-100"></span>
-                  <span className="text-gray-300 font-normal">or</span>
-                  <span className="h-px w-16 bg-gray-100"></span>
-                </div>
-
-                <div className="flex justify-center gap-5 w-full ">
-                  <button type="submit" className="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
-                    {svgGoogle()}
-                    <span>Google</span>
-                  </button>
-                </div>
-
-                <div className="mt-7 text-center text-gray-300 text-xs">
-                  <span>
-                    Copyright © {new Date().getFullYear()}
-                  </span>
-                </div>
+            {/* <div className=""> */}
+            <form onSubmit={formik.handleSubmit} className="space-y-6">
+              <div className="">
+                <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                  type="text"
+                  placeholder="First Name"
+                  name="first_name"
+                  value={formik.values.first_name}
+                  onChange={formik.handleChange}
+                />
+                {
+                  formik.errors.first_name && formik.touched.first_name ?
+                    <span className="text-red-500">{formik.errors.first_name}</span> : ''
+                }
               </div>
+              <div className="">
+                <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                  type="text"
+                  placeholder="Last Name"
+                  name="last_name"
+                  value={formik.values.last_name}
+                  onChange={formik.handleChange}
+                />
+                {
+                  formik.errors.last_name && formik.touched.last_name ?
+                    <span className="text-red-500">{formik.errors.last_name}</span> : ''
+                }
+              </div>
+              <div className="">
+                <input className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                />
+                {
+                  formik.errors.email && formik.touched.email ?
+                    <span className="text-red-500">{formik.errors.email}</span> : ''
+                }
+              </div>
+
+              <div className="relative"
+              //  x-data="{ show: true }"
+              >
+                <input
+                  name="password"
+                  placeholder="Password"
+                  type={show ? "text" : 'password'}
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  className="text-sm px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400"
+                />
+                <div className="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
+                  <p onClick={() => setShow(show ? false : true)}>
+                    {svgEyes()}
+                  </p>
+                </div>
+                {
+                  formik.errors.password && formik.touched.password ?
+                    <span className="text-red-500">{formik.errors.password}</span> : ''
+                }
+              </div>
+
+              <div>
+                <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+                  Sign in
+                </button>
+              </div>
+
+              <div className="flex items-center justify-center space-x-2 my-3">
+                <span className="h-px w-16 bg-gray-100"></span>
+                <span className="text-gray-300 font-normal">or</span>
+                <span className="h-px w-16 bg-gray-100"></span>
+              </div>
+
             </form>
+            <div className="flex justify-center gap-5 w-full ">
+              <button
+                type="button"
+                onClick={() => handleClick()}
+                className="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
+                {svgGoogle()}
+                <span>Google</span>
+              </button>
+            </div>
+
+            <div className="mt-7 text-center text-gray-300 text-xs">
+              <span>
+                Copyright © {new Date().getFullYear()}
+              </span>
+              {/* </div> */}
+            </div>
 
           </div>
         </div>

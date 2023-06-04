@@ -14,6 +14,15 @@ export const createUser = createAsyncThunk('user/create', async (params, { rejec
   }
 })
 
+// export const googleSigIn = createAsyncThunk('google/registger', async (params, { rejectWithValue }) => {
+//   try {
+//     return await instance.get('google')
+//   } catch (error) {
+//     return rejectWithValue(error.responce)
+//   }
+// })
+
+
 export const userList = createAsyncThunk('users/list', async (params, { rejectWithValue }) => {
   try {
     return await instance.get(`users`)
