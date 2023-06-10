@@ -3,7 +3,7 @@ import React from "react";
 const PrivacyPage = () => {
   return (
    <>
-    <div className="container mx-auto py-8 ">
+    <div className="container mx-auto  "style={{marginTop:"150px"}}>
       <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
 
       <p className="mb-4">

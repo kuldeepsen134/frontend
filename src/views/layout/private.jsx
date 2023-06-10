@@ -9,11 +9,11 @@ const PrivateLayout = () => {
   return (
     <>
       {/* <Container fluid> */}
-      <Row>
+      <Row style={{marginRight:0}}>
         <Col xs={2} >
-          <AppSidebar />
+          <AppSidebar  />
         </Col>
-        <Col style={{ background: '#e9ecef' }}>
+        <Col style={{ background: '#e9ecef' }} >
           <AppHeader />
           <Outlet />
         </Col>

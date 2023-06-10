@@ -39,6 +39,16 @@ export const userListById = createAsyncThunk('user/list/id', async (id, { reject
   }
 })
 
+
+export const me = createAsyncThunk('/me', async (id, { rejectWithValue }) => {
+  try {
+    return await instance.get(`me`,)
+  } catch (error) {
+    return rejectWithValue(error.responce)
+  }
+})
+
+
 export const userUpdate = createAsyncThunk('user/update', async (params, id, { rejectWithValue }) => {
   try {
     return await instance.put(`users/${id}`, params)
@@ -65,7 +75,7 @@ const userSlice = createSlice({
       state.userlistData = {}
     },
     [userList.fulfilled]: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false
       state.userlistData = action.payload
 
@@ -73,6 +83,36 @@ const userSlice = createSlice({
       state.loading = false
       state.userList = {}
     },
+
+
+    [userListById.pending]: (state,) => {
+      state.loading = false
+      state.userlistData = {}
+    },
+    [userListById.fulfilled]: (state, action) => {
+      // console.log(action.payload);
+      state.loading = false
+      state.userlistData = action.payload
+
+    }, [userListById.rejected]: (state,) => {
+      state.loading = false
+      state.userList = {}
+    },
+
+    [me.pending]: (state,) => {
+      state.loading = false
+      state.userlistData = {}
+    },
+    [me.fulfilled]: (state, action) => {
+      // console.log(action.payload);
+      state.loading = false
+      state.userlistData = action.payload
+
+    }, [me.rejected]: (state,) => {
+      state.loading = false
+      state.userList = {}
+    },
+
   }
 })
 

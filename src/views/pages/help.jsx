@@ -2,7 +2,7 @@ import React from "react";
 
 const HelpPage = () => {
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto" style={{ marginTop: "150px" }}>
       <h1 className="text-4xl font-bold mb-4">Help Desk</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

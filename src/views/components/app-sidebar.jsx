@@ -48,12 +48,11 @@ const AppSidebar = () => {
 
   return (
     <>
-
-      <div className="left-image">
+      <div className="left-image ">
         <div className="image-box my-2">
 
           <Link to={'/app/dashboard'}>
-            <img src="/assets/images/logo.png" className="w-25 mx-2" />
+            <img src="/assets/images/logo.png" className="w-25 mx-4" />
           </Link>
         </div>
         <h1 style={{

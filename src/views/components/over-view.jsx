@@ -9,9 +9,9 @@ const OverView = (data) => {
   return (
     <>
       <Container className="my-5">
-        <Row>
-          <Col>
-            <h5 className="my-2 fw-bold mx-2">Over All</h5>
+        <Row >
+          <Col className="my-5 " >
+            <h5 className="my-4 fw-bold mt-4">Over All</h5>
             <div className="d-flex juctify-content-start">
               {data?.data?.map((item, i) => {
                 return (
