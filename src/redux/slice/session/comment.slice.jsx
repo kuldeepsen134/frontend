@@ -16,14 +16,22 @@ export const createComment = createAsyncThunk('comments/create', async (params, 
 
 
 
-export const commentList = createAsyncThunk('users/list', async (params, { rejectWithValue }) => {
+export const commentList = createAsyncThunk('comments/list', async (params, { rejectWithValue }) => {
   try {
-    return await instance.get(`users`)
+    return await instance.get(`comments`)
   } catch (error) {
     return rejectWithValue(error.responce)
   }
 })
 
+
+export const getCommentByPostID = createAsyncThunk('get-comments/:id', async (id, { rejectWithValue }) => {
+  try {
+    return await instance.get(`get-comments/${id}`)
+  } catch (error) {
+    return rejectWithValue(error.responce)
+  }
+})
 
 
 
@@ -44,6 +52,22 @@ const commentSlice = createSlice({
       state.loading = false
       state.commentList = {}
     },
+
+
+
+    [getCommentByPostID.pending]: (state,) => {
+      state.loading = false
+      state.commentlistData = {}
+    },
+    [getCommentByPostID.fulfilled]: (state, action) => {
+      state.loading = false
+      state.commentlistData = action.payload
+
+    }, [getCommentByPostID.rejected]: (state,) => {
+      state.loading = false
+      state.commentList = {}
+    },
+
   }
 })
 

@@ -7,26 +7,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, postList } from "redux/slice/session/post.slice";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { createComment } from "redux/slice/session/comment.slice";
-import { AiOutlineSend } from "react-icons/ai";
+// import { createComment } from "redux/slice/session/comment.slice";
+// import { AiOutlineSend } from "react-icons/ai";
 import ReadMoreReact from 'read-more-react'
 
 const TableList = () => {
 
-  const [visibility, setVisibility] = useState({});
+  // const [visibility, setVisibility] = useState({});
 
   const dispatch = useDispatch()
   const nevigate = useNavigate()
 
   const { userlistData } = useSelector((state) => state.post)
 
-  const showHideButton = (id) => {
+  // const showHideButton = (id) => {
 
-    setVisibility((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  };
+  //   setVisibility((prevState) => ({
+  //     ...prevState,
+  //     [id]: !prevState[id],
+  //   }));
+  // };
 
 
   const [initialData] = useState({
@@ -59,21 +59,21 @@ const TableList = () => {
 
   //***********Comment on post formik */
 
-  const [initialComment] = useState({
-    message: '',
-    post_id: '',
-  });
+  // const [initialComment] = useState({
+  //   message: '',
+  //   post_id: '',
+  // });
 
-  const formik1 = useFormik({
-    initialValues: initialComment,
+  // const formik1 = useFormik({
+  //   initialValues: initialComment,
 
-    onSubmit: (values) => {
-      dispatch(createPost(values)).unwrap().then((data) => {
-        console.log('data', data);
-        dispatch(createComment('comments'))
-      })
-    }
-  });
+  //   onSubmit: (values) => {
+  //     dispatch(createPost(values)).unwrap().then((data) => {
+  //       console.log('data', data);
+  //       dispatch(createComment('comments'))
+  //     })
+  //   }
+  // });
 
   useEffect(() => {
     dispatch(postList('posts'))
@@ -163,26 +163,10 @@ const TableList = () => {
                       <div className="flex items-center space-x-4 text-gray-500">
 
                         <FiMessageSquare
-
-                          onClick={() => showHideButton(item._id)}
+                          onClick={() => nevigate(`/app/post-single/${item._id}`)}
                           className="w-5 h-5" />
                         <span>10</span>
 
-                        {
-                          visibility[item._id] ?
-                            <>
-                              <textarea
-                                className="w-full h-11 p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring focus:border-blue-500"
-                                placeholder="Write a comment..."
-                                name="message"
-                                onChange={formik1.handleChange}
-                                value={formik1.values.message}
-                              >
-                              </textarea>
-
-                              <button style={{ borderRadius: '30px' }}><AiOutlineSend /></button>
-                            </>
-                            : ""}
                       </div>
                     </div>
 

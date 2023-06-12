@@ -7,6 +7,8 @@ import PrivacyPage from './privacy'
 import HelpPage from './help'
 
 import UserSingle from './userSingle'
+import PostSingle from './postSingle'
+
 
 export {
   Dashboard,
@@ -15,5 +17,6 @@ export {
   Balance,
   PrivacyPage,
   SettingPage,
-  HelpPage
+  HelpPage,
+  PostSingle
 }

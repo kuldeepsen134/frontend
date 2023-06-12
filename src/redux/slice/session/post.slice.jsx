@@ -26,13 +26,13 @@ export const postList = createAsyncThunk('posts', async (params, { rejectWithVal
 
 
 
-// export const postListById = createAsyncThunk('posts/:id', async (id, { rejectWithValue }) => {
-//   try {
-//     return await instance.get(`users/${id}`,)
-//   } catch (error) {
-//     return rejectWithValue(error.responce)
-//   }
-// })
+export const postListById = createAsyncThunk('posts/:id', async (id, { rejectWithValue }) => {
+  try {
+    return await instance.get(`posts/${id}`,)
+  } catch (error) {
+    return rejectWithValue(error.responce)
+  }
+})
 
 
 const postSlice = createSlice({
@@ -68,6 +68,25 @@ const postSlice = createSlice({
       state.loading = false
       state.userList = {}
     },
+
+
+
+    [postListById.pending]: (state,) => {
+      state.loading = false
+      state.postlistData = {}
+    },
+    [postListById.fulfilled]: (state, action) => {
+      // console.log(action.payload);
+      state.loading = false
+      state.postlistData = action.payload
+
+    }, [postListById.rejected]: (state,) => {
+      state.loading = false
+      state.postlistData = {}
+    },
+
+
+
   }
 })
 
