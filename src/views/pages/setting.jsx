@@ -26,18 +26,12 @@ const SettingPage = () => {
   const formik = useFormik({
     initialValues: initialData,
     enableReinitialize: true,
-
     onSubmit: (values) => {
       dispatch(userUpdate(values)).unwrap().then(() => {
 
       })
     }
   })
-
-
-
-
-
 
   return (
     <div className="container mx-auto " style={{ marginTop: "130px" }}>
@@ -48,7 +42,7 @@ const SettingPage = () => {
 
           <div className="mb-2">
             <label htmlFor="first_name" className="block text-gray-700 font-bold mb-2">
-              Name
+              First name
             </label>
             <input
               id="first_name"

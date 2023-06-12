@@ -1,28 +1,26 @@
-import React, { useEffect } from "react";
+/* eslint-disable no-undef */
+import React, { useEffect, } from "react";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { FiCalendar, FiImage, FiMessageSquare, FiSmile } from "react-icons/fi";
+import { FiCalendar, FiMessageSquare, FiSmile } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, postList } from "redux/slice/session/post.slice";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { createComment } from "redux/slice/session/comment.slice";
 import { AiOutlineSend } from "react-icons/ai";
+import ReadMoreReact from 'read-more-react'
 
 const TableList = () => {
 
-  const dispatch = useDispatch()
-  const nevigate = useNavigate()
-  const { userlistData } = useSelector((state) => state.post)
-
-
-
   const [visibility, setVisibility] = useState({});
 
+  const dispatch = useDispatch()
+  const nevigate = useNavigate()
+
+  const { userlistData } = useSelector((state) => state.post)
+
   const showHideButton = (id) => {
-
-    console.log('id>>>>>>>', id);
-
 
     setVisibility((prevState) => ({
       ...prevState,
@@ -31,37 +29,28 @@ const TableList = () => {
   };
 
 
-  const [files, setFiles] = useState([])
-
-  console.log('visibility,', visibility);
-
-
-  const onFileUpload = (event) => {
-    setFiles(event.target.files)
-  }
-
   const [initialData] = useState({
     message: "",
-    files: [],
+    files: null,
   });
 
   const formik = useFormik({
     initialValues: initialData,
 
+    onSubmit: (values, { resetForm }) => {
 
-    onSubmit: (values) => {
-
-
-      const formData = new FormData()
-
-      formData.append('message', values.message);
-
-      for (let i = 0; i < files.length; i++) {
-        formData.append(`file[${i}]`, files[0]);
+      function getFormData(object) {
+        const formData = new FormData();
+        Object.keys(object).forEach(key => formData.append(key, object[key]));
+        return formData;
       }
 
-      dispatch(createPost(formData)).unwrap().then((data) => {
+
+      const data = getFormData(values)
+      dispatch(createPost(data,)).unwrap().then((data) => {
+
         console.log('data', data);
+        resetForm()
         dispatch(postList('posts'))
       })
     }
@@ -79,16 +68,12 @@ const TableList = () => {
     initialValues: initialComment,
 
     onSubmit: (values) => {
-
       dispatch(createPost(values)).unwrap().then((data) => {
         console.log('data', data);
         dispatch(createComment('comments'))
       })
     }
   });
-
-
-
 
   useEffect(() => {
     dispatch(postList('posts'))
@@ -99,6 +84,9 @@ const TableList = () => {
       <div className="container mx-auto ">
         <form className="py-4	" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col bg-white w-4/5	 border border-gray-200 rounded p-4">
+
+
+
             <textarea
               className="w-full resize-none border-none focus:outline-none focus:ring-1 focus:ring-blue-500 p-2 rounded"
               rows={3}
@@ -113,18 +101,16 @@ const TableList = () => {
               <div className="flex items-center space-x-2">
 
                 <label htmlFor="image-upload" className="cursor-pointer">
-                  <FiImage className="text-blue-500 w-5 h-5" />
+                  {/* <FiImage className="text-blue-500 w-5 h-5" /> */}
                 </label>
 
                 <input
-                  id="image-upload"
-                  type="file"
+                  onChange={v => formik.setFieldValue("files", v.target.files[0])}
+                  id="files"
                   name="files"
-                  className="hidden"
-                  multiple
-                  value={formik.values.files}
-                  onChange={onFileUpload}
-                />
+                  type="file"
+                  multiple />
+
                 <FiSmile className="text-blue-500 w-5 h-5" />
                 <FiCalendar className="text-blue-500 w-5 h-5" />
               </div>
@@ -153,15 +139,26 @@ const TableList = () => {
 
                   <div className="flex-grow">
                     <div className="flex items-center">
-                      {/* {console.log(item.creater_Id)} */}
-                      <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item.creater_Id}`)}  >{item.userName}</span>
-                      {/* <span className="text-gray-500 ml-2">@johndoe</span> */}
+                      <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item.creater_Id}`)}>{item.userName}</span>
                       <span className="text-gray-500 mx-2">•</span>
                       <span className="text-gray-500">{moment(item.createdAt).fromNow()
                       }</span>
                     </div>
 
-                    <p className="mt-1">{item?.message}</p>
+                   
+                    <ReadMoreReact
+                      text={item?.message}
+                      min={80}
+                      ideal={100}
+                      max={200}
+                      readMoreText="click here to read more"
+                    />
+                    {item?.files?.map((file) => {
+                      return (<>
+
+                        <img src={`${process.env.REACT_APP_BASE_ENDPOINT}${file && file.filePath}`} />
+                      </>)
+                    })}
                     <div className="flex items-center mt-3">
                       <div className="flex items-center space-x-4 text-gray-500">
 
@@ -183,7 +180,7 @@ const TableList = () => {
                               >
                               </textarea>
 
-                              <button style={{borderRadius:'30px'}}><AiOutlineSend/></button>
+                              <button style={{ borderRadius: '30px' }}><AiOutlineSend /></button>
                             </>
                             : ""}
                       </div>

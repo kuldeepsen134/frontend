@@ -7942,6 +7942,11 @@
   dependencies:
     "pify" "^2.3.0"
 
+"read-more-react@^1.0.10":
+  "integrity" "sha512-8IRDU/tJX1hLbHjPxJHeUxAhm/wC8RHPSbAA+3mS7Dk13/PJf9ra7Z18apkqqPkENIoEaQI5NqhIMQIa1vOxfw=="
+  "resolved" "https://registry.npmjs.org/read-more-react/-/read-more-react-1.0.10.tgz"
+  "version" "1.0.10"
+
 "readable-stream@^2.0.1":
   "integrity" "sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw=="
   "resolved" "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz"

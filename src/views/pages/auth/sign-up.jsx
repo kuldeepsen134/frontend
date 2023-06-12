@@ -9,7 +9,7 @@ import { path } from "utlis/endpoint";
 import { svgEyes, svgGoogle } from "utlis/svg";
 
 import { register } from "redux/slice/session/session.slice";
-import instance from "redux/axios/axios";
+// import instance from "redux/axios/axios";
 // import { googleSigIn } from "redux/slice/session/user.slice";
 
 const SignUp = () => {
@@ -47,12 +47,21 @@ const SignUp = () => {
   })
 
 
-  const handleClick = (() => {
-    instance.get('/google').then(data=>{
-      console.log('ddddddd',data);
-    })
+  // const handleClick = (() => {
+  //   instance.get('/google').then(data=>{
+  //     console.log('ddddddd',data);
+  //   })
 
-  })
+  // })
+
+
+  const googleAuth = () => {
+		window.open(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BASE_ENDPOINT}auth/google/callback`,
+			"_self"
+		);
+	};
 
   return (
     <>
@@ -162,7 +171,7 @@ const SignUp = () => {
             <div className="flex justify-center gap-5 w-full ">
               <button
                 type="button"
-                onClick={() => handleClick()}
+                onClick={googleAuth}
                 className="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500">
                 {svgGoogle()}
                 <span>Google</span>

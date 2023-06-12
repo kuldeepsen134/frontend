@@ -14,16 +14,15 @@ const userSingle = () => {
     dispatch(userListById(`${params.id}`))
   }, [])
 
-  
-  
+
+
+  const member_IDs = []
+  member_IDs.push(params.id)
+
   const handleSubmit = () => {
-    // const member_IDS: params.id
-    dispatch(joiFollower(params.id))
-
-
+    dispatch(joiFollower({member_IDs})).unwrap().then(() => {
+    })
   }
-
-
 
   return (
     <div className="min-h-screen bg-gray-100 " style={{ marginTop: "150px" }}>
@@ -53,12 +52,16 @@ const userSingle = () => {
                   style={{ borderRadius: "25px" }}
                 />
                 <div>
-                  <div className="font-bold text-lg">{userlistData?.data?.first_name + ' ' + userlistData?.data?.last_name}</div>
+                  <div className="font-bold text-lg ml-2">{userlistData?.data?.first_name + ' ' + userlistData?.data?.last_name}</div>
                   {/* <div className="text-gray-600">@johndoe</div> */}
                 </div>
               </div>
               <div className="mt-4">
+
+                <div className="text-gray-600"> <p className='font-bold'>User ID :  {userlistData?.data?._id}</p></div>
+
                 <div className="text-gray-600">Bio:</div>
+
                 <div className="mt-2">
                   Software Engineer | OpenAI | Passionate about AI and NLP
                 </div>
