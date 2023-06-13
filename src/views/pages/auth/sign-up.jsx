@@ -58,7 +58,7 @@ const SignUp = () => {
   const googleAuth = () => {
 		window.open(
 			// eslint-disable-next-line no-undef
-			`${process.env.REACT_APP_BASE_ENDPOINT}auth/google/callback`,
+			`${process.env.REACT_APP_BASE_ENDPOINT}/google`,
 			"_self"
 		);
 	};
@@ -157,7 +157,7 @@ const SignUp = () => {
 
               <div>
                 <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-                  Sign in
+                 Register
                 </button>
               </div>
 
