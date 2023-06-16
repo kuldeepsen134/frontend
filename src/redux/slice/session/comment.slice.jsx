@@ -15,7 +15,6 @@ export const createComment = createAsyncThunk('comments/create', async (params, 
 })
 
 
-
 export const commentList = createAsyncThunk('comments/list', async (params, { rejectWithValue }) => {
   try {
     return await instance.get(`comments`)
