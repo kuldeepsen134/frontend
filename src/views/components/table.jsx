@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 // import { createComment } from "redux/slice/session/comment.slice";
 // import { AiOutlineSend } from "react-icons/ai";
 import ReadMoreReact from 'read-more-react'
+import { userList } from "redux/slice/session/user.slice";
 
 const TableList = () => {
 
@@ -29,6 +30,7 @@ const TableList = () => {
   // };
 
 
+  const [getUser, setUser] = useState([])
   const [initialData] = useState({
     message: "",
     files: null,
@@ -47,9 +49,7 @@ const TableList = () => {
 
 
       const data = getFormData(values)
-      dispatch(createPost(data,)).unwrap().then((data) => {
-
-        console.log('data', data);
+      dispatch(createPost(data,)).unwrap().then(() => {
         resetForm()
         dispatch(postList('posts'))
       })
@@ -77,7 +77,15 @@ const TableList = () => {
 
   useEffect(() => {
     dispatch(postList('posts'))
+    dispatch(userList()).unwrap().then((result) => {
+      setUser(result?.data)
+    })
   }, [])
+
+
+
+
+
 
   return (
     <>
@@ -86,7 +94,7 @@ const TableList = () => {
         <div className="flex gap-4 items-start	">
           <div className="col-span-3 w-[80%] bg-gray-200" >
 
-            <form className="py-4	" onSubmit={formik.handleSubmit}>
+            <form className="form" onSubmit={formik.handleSubmit}>
               <div className="flex flex-col bg-white 	 border border-gray-200 rounded p-4">
 
                 <textarea
@@ -130,7 +138,7 @@ const TableList = () => {
             {userlistData && userlistData?.data?.map((item) => {
               return (
                 <>
-                  <div className="bg-white w-4/5	 p-4 mb-4 shadow-md rounded">
+                  <div className="bg-white my-4	 p-4 mb-4 shadow-md rounded">
                     <div className="flex items-start space-x-4">
                       <img
                         src="https://i.pravatar.cc/50"
@@ -178,40 +186,27 @@ const TableList = () => {
                 </>)
             })}
           </div>
-          
-          <div className="flex flex-col gap-4 w-[20%]">
-            <div className="col-span-1 bg-white  ">
-              <img
-                src="https://i.pravatar.cc/50"
-                alt=""
-                style={{ borderRadius: "25px" }}
-              />
-              <div className="flex-grow ">
-                <div className="flex items-center">
-                  <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${'item?.creater_Id'}`)}>{"Kuldeep Sen"}</span>
-                  <span className="text-gray-500">{''}</span>
+          <div className="flex flex-col gap-3 w-[25%]">
+            {getUser && getUser?.map((item) => {
+
+              return (<>
+                <div className="col-span-1 bg-white flex"  style={{ borderRadius: "10px" }}>
+                  <img
+                  className="p-3"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                    style={{ borderRadius: "25px" }}
+                    onClick={() => nevigate(`/app/users-single/${item && item._id}`)}
+                  />
+                  {/* <div className="flex-grow "> */}
+                    <div className="flex items-center">
+                      <span className="font-bold text-lg m-2" onClick={() => nevigate(`/app/users-single/${item && item._id}`)}>{item && item?.first_name}</span>
+                    {/* </div> */}
+                  </div>
                 </div>
-              </div>
-            </div>
-
-
-            <div className="col-span-1  bg-white ">
-              <img
-                src="https://i.pravatar.cc/50"
-                alt=""
-                style={{ borderRadius: "25px" }}
-              />
-              <div className="flex-grow ">
-                <div className="flex items-center">
-                  <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${'item?.creater_Id'}`)}>{"Kuldeep Sen"}</span>
-                  <span className="text-gray-500">{''}</span>
-                </div>
-              </div>
-            </div>
-
+              </>)
+            })}
           </div>
-
-          
         </div>
       </div>
     </>

@@ -60,7 +60,7 @@ const AppSidebar = () => {
           top: '30px',
           bottom: '0',
           position: 'absolute'
-        }}>Share Shield</h1>
+        }}>Star Shield</h1>
 
         {
           menu.map((item, i) => {

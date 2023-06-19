@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, } from "react-redux";
-import { me, userUpdate } from "redux/slice/session/user.slice";
+import { createProfile } from "redux/slice/session/profile.slice";
 
 const Profile = () => {
 
@@ -17,28 +17,27 @@ const Profile = () => {
     city: '',
     State: '',
     alternate_contact: '',
-    country:'',
-    dob:'',
-    zip:'',
-    employed:'',
-    yearly_salary:'',
-    graduation:''
+    country: '',
+    dob: '',
+    zip: '',
+    employed: '',
+    yearly_salary: '',
+    graduation: ''
   }
 
 
   const formik = useFormik({
     initialValues: getUser,
     enableReinitialize: true,
-    onSubmit: (values) => {
-      dispatch(userUpdate(values,)).unwrap().then(() => {
+    onSubmit: (values,{ resetForm }) => {
+      dispatch(createProfile(values)).unwrap().then(() => {
+        resetForm()
       })
     }
   })
   useEffect(() => {
     setUser(initialData)
-    dispatch(me()).unwrap().then((result) => {
-      setUser(result && result?.data)
-    })
+
   }, [])
 
 
@@ -48,7 +47,6 @@ const Profile = () => {
       <div className="max-w-md mx-auto bg-white p-4 rounded shadow">
         <h2 className="text-xl font-bold ">User Profile</h2>
         <form className="py-4	" onSubmit={formik.handleSubmit}>
-
           <div className="mb-2">
             <label htmlFor="gender" className="block text-gray-700 font-bold mb-2">
               Gender

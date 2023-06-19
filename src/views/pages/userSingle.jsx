@@ -1,4 +1,4 @@
-import React, { useEffect, useState,  } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { joiFollower } from 'redux/slice/session/follower.slice'
@@ -37,7 +37,7 @@ const userSingle = () => {
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
               onClick={handleSubmit}
             >
-             {follow ? 'Followed':'Join'} 
+              {follow ? 'Followed' : 'Join'}
             </button>
           </div>
         </div>
@@ -54,7 +54,7 @@ const userSingle = () => {
                   style={{ borderRadius: "25px" }}
                 />
                 <div>
-                  <div className="font-bold text-lg ml-2">{userlistData?.data?.first_name + ' ' + userlistData?.data?.last_name}</div>
+                  <div className="font-bold text-lg ml-2">{userlistData?.data?.first_name}</div>
                   {/* <div className="text-gray-600">@johndoe</div> */}
                 </div>
               </div>

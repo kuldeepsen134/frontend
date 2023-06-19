@@ -5,31 +5,16 @@ const HelpPage = () => {
     <div className="container mx-auto" style={{ marginTop: "150px" }}>
       <h1 className="text-4xl font-bold mb-4">Help Desk</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="">
         <div className="bg-white p-4 shadow">
-          <h2 className="text-xl font-bold mb-2">Frequently Asked Questions</h2>
+          <h2 className="text-xl font-bold mb-2">Customer Support:
+</h2>
           <p className="mb-4">
-            Find answers to commonly asked questions in our FAQ section.
+          For any inquiries related to our products or services, or if you require assistance with this servicw, our dedicated customer support team is here to help. You can reach out to us by:
           </p>
-          <a
-            href="#"
-            className="inline-block bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-300"
-          >
-            Visit FAQ
-          </a>
-        </div>
-
-        <div className="bg-white p-4 shadow">
-          <h2 className="text-xl font-bold mb-2">Contact Us</h2>
-          <p className="mb-4">
-            Have a specific question or need assistance? Contact our support team.
-          </p>
-          <a
-            href="#"
-            className="inline-block bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-300"
-          >
-            Contact Support
-          </a>
+          <p>- Email: [support@domain.com](mailto:support@yourwebsite.com)
+        </p>
+        <span>- Phone: [+91 88373 22554]</span>
         </div>
       </div>
     </div>

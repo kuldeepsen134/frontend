@@ -24,6 +24,14 @@ export const followerList = createAsyncThunk('followers', async (params, { rejec
   }
 })
 
+export const getFollowerList = createAsyncThunk('get-followers', async (params, { rejectWithValue }) => {
+  try {
+    return await instance.get(`get-followers`)
+  } catch (error) {
+    return rejectWithValue(error.responce)
+  }
+})
+
 
 
 const followerSlice = createSlice({
@@ -32,7 +40,6 @@ const followerSlice = createSlice({
   reducers: {},
 
   extraReducers: {
-
     [joiFollower.pending]: (state,) => {
       state.loading = false
       state.userlistData = {}
@@ -46,6 +53,24 @@ const followerSlice = createSlice({
       state.loading = true
       state.userList = {}
     },
+
+
+
+
+    [getFollowerList.pending]: (state,) => {
+      state.loading = false
+      state.followerlistData = {}
+    },
+    [getFollowerList.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      state.followerlistData = action.payload
+      toast.success(action.payload.message);
+
+    }, [getFollowerList.rejected]: (state,) => {
+      state.loading = true
+      state.followerlistData = {}
+    },
+
   }
 })
 
