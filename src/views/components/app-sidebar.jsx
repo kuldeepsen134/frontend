@@ -21,9 +21,9 @@ const AppSidebar = () => {
     path: '/app/history'
 
   }, {
-    name: 'Blance',
+    name: 'Profile',
     svg: <BsChatRightText />,
-    path: '/app/balance'
+    path: '/app/profile'
 
   },
   ]
@@ -37,9 +37,9 @@ const AppSidebar = () => {
     path: '/app/help'
 
   }, {
-    name: 'Privacy',
+    name: 'About',
     svg: <BsShieldCheck />,
-    path: '/app/privacy'
+    path: '/app/about'
 
   },
   ]
@@ -56,7 +56,7 @@ const AppSidebar = () => {
           </Link>
         </div>
         <h1 style={{
-          color: 'white', marginLeft: '80px',
+          color: 'white', marginLeft: '100px',
           top: '30px',
           bottom: '0',
           position: 'absolute'

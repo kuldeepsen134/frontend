@@ -125,7 +125,7 @@ const TableList = () => {
           </div>
         </form>
 
-        {userlistData && userlistData.data?.map((item) => {
+        {userlistData && userlistData?.data?.map((item) => {
           return (
             <>
 
@@ -139,9 +139,9 @@ const TableList = () => {
 
                   <div className="flex-grow">
                     <div className="flex items-center">
-                      <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item.creater_Id}`)}>{item.userName}</span>
+                      <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item?.creater_Id}`)}>{item?.userName}</span>
                       <span className="text-gray-500 mx-2">•</span>
-                      <span className="text-gray-500">{moment(item.createdAt).fromNow()
+                      <span className="text-gray-500">{moment(item?.createdAt).fromNow()
                       }</span>
                     </div>
 

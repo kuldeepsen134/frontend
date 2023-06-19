@@ -9,9 +9,6 @@ const instance = axios.create({
 
 
 instance.interceptors.response.use(response => response.data, async (error) => {
-
-  console.log('error>>>>>>>>>>>>>>', error);
-
   toast.error(error?.response?.data.message)
 
   if (error?.response?.status === 401) {

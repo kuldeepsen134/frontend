@@ -11,6 +11,7 @@ const initialState = {
 export const login = createAsyncThunk('account/login', async (params, { rejectWithValue }) => {
   try {
     return await instance.post('login', params,{withCredentials: true})
+    
   } catch (error) {
     return rejectWithValue(error.responce)
   }

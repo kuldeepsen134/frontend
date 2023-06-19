@@ -1,6 +1,6 @@
 import React from "react";
 
-const PrivacyPage = () => {
+const About = () => {
   return (
    <>
     <div className="container mx-auto  "style={{marginTop:"150px"}}>
@@ -47,4 +47,4 @@ const PrivacyPage = () => {
    </>
   )
 }
-export default PrivacyPage
+export default About

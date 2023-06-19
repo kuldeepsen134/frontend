@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import { toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import instance from 'redux/axios/axios'
 
 const initialState = {
@@ -49,11 +49,12 @@ export const me = createAsyncThunk('/me', async (id, { rejectWithValue }) => {
 })
 
 
-export const userUpdate = createAsyncThunk('user/update', async (params, id, { rejectWithValue }) => {
+export const userUpdate = createAsyncThunk('user/update', async (params,) => {
+
   try {
-    return await instance.put(`users/${id}`, params)
+    return await instance.patch(`users/${params._id}`, params)
   } catch (error) {
-    return rejectWithValue(error.responce)
+    return (error.responce)
   }
 })
 
@@ -78,8 +79,24 @@ const userSlice = createSlice({
       // console.log(action.payload);
       state.loading = false
       state.userlistData = action.payload
-
+      
     }, [userList.rejected]: (state,) => {
+      state.loading = false
+      state.userList = {}
+    },
+
+
+    [userUpdate.pending]: (state,) => {
+      state.loading = false
+      state.userlistData = {}
+    },
+    [userUpdate.fulfilled]: (state, action) => {
+      // console.log(action.payload);
+      state.loading = false
+      state.userlistData = action.payload
+      toast.success(action.payload.message);
+
+    }, [userUpdate.rejected]: (state,) => {
       state.loading = false
       state.userList = {}
     },

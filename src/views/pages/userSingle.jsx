@@ -1,4 +1,4 @@
-import React, { useEffect, } from 'react'
+import React, { useEffect, useState,  } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { joiFollower } from 'redux/slice/session/follower.slice'
@@ -8,6 +8,7 @@ const userSingle = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
+  const [follow, setFollow] = useState('')
   const { userlistData } = useSelector((state) => state.user)
 
   useEffect(() => {
@@ -20,7 +21,8 @@ const userSingle = () => {
   member_IDs.push(params.id)
 
   const handleSubmit = () => {
-    dispatch(joiFollower({member_IDs})).unwrap().then(() => {
+    dispatch(joiFollower({ member_IDs })).then((data) => {
+      setFollow(data?.payload?.admin_Id)
     })
   }
 
@@ -35,7 +37,7 @@ const userSingle = () => {
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
               onClick={handleSubmit}
             >
-              Join
+             {follow ? 'Followed':'Join'} 
             </button>
           </div>
         </div>

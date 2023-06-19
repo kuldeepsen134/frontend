@@ -1,37 +1,42 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import { me, userUpdate } from "redux/slice/session/user.slice";
 
 const SettingPage = () => {
 
   const dispatch = useDispatch()
 
-  const { userlistData } = useSelector((state) => state.user)
+  // const { userlistData } = useSelector((state) => state.user)
 
+  const [getUser, setUser] = useState({})
 
-  const [initialData] = useState({
-    first_name: userlistData && userlistData?.data?.first_name,
-    last_name: userlistData && userlistData?.data?.last_name,
+  // console.log('vvvvvvvvvvvvvv',getUser.data.first_name);
+
+  const initialData = {
+    first_name: getUser?.first_name,
+    last_name: getUser?.last_name,
     password: '',
-    contact: userlistData && userlistData?.data?.contact
-  })
+    contact: getUser?.contact
+  }
 
+
+  const formik = useFormik({
+    initialValues: getUser,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      dispatch(userUpdate(values, )).unwrap().then(() => {
+      })
+    }
+  })
   useEffect(() => {
-    dispatch(me()).unwrap().then(() => {
+    setUser(initialData)
+    dispatch(me()).unwrap().then((result) => {
+      setUser(result && result?.data)
     })
   }, [])
 
 
-  const formik = useFormik({
-    initialValues: initialData,
-    enableReinitialize: true,
-    onSubmit: (values) => {
-      dispatch(userUpdate(values)).unwrap().then(() => {
-
-      })
-    }
-  })
 
   return (
     <div className="container mx-auto " style={{ marginTop: "130px" }}>

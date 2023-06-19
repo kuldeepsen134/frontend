@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import { toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import instance from 'redux/axios/axios'
 
 const initialState = {
@@ -46,6 +46,9 @@ const commentSlice = createSlice({
     [commentList.fulfilled]: (state, action) => {
       state.loading = false
       state.commentlistData = action.payload
+      console.log(action.payload,'dddddd');
+      toast.success(action.payload.message);
+      
 
     }, [commentList.rejected]: (state,) => {
       state.loading = false

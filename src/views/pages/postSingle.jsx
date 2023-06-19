@@ -72,10 +72,10 @@ const PostSingle = () => {
               alt=""
               style={{ borderRadius: "25px" }}
             />
-            <span className='ml-4 mt-2 font-bold'>{item.user_name}</span>
-            <span className='mt-2 ml-2'>{moment(item.createdAt).fromNow()}</span>
+            <span className='ml-4 mt-2 font-bold'>{item?.user_name}</span>
+            <span className='mt-2 ml-2'>{moment(item?.createdAt).fromNow()}</span>
           </div>
-          <p className='ml-3 mt-2 my-1 w-3/12'>{item.message}</p>
+          <p className='ml-3 mt-2 my-1 w-3/12'>{item?.message}</p>
         </>)
       })}
 
