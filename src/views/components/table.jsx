@@ -82,101 +82,138 @@ const TableList = () => {
   return (
     <>
       <div className="container mx-auto ">
-        <form className="py-4	" onSubmit={formik.handleSubmit}>
-          <div className="flex flex-col bg-white w-4/5	 border border-gray-200 rounded p-4">
 
+        <div className="flex gap-4 items-start	">
+          <div className="col-span-3 w-[80%] bg-gray-200" >
 
+            <form className="py-4	" onSubmit={formik.handleSubmit}>
+              <div className="flex flex-col bg-white 	 border border-gray-200 rounded p-4">
 
-            <textarea
-              className="w-full resize-none border-none focus:outline-none focus:ring-1 focus:ring-blue-500 p-2 rounded"
-              rows={3}
-              placeholder="What's happening?"
-              name="message"
-              onChange={formik.handleChange}
-              value={formik.values.message}
-            >
-            </textarea>
+                <textarea
+                  className="w-full resize-none border-none focus:outline-none focus:ring-1 focus:ring-blue-500 p-2 rounded"
+                  rows={3}
+                  placeholder="What's happening?"
+                  name="message"
+                  onChange={formik.handleChange}
+                  value={formik.values.message}
+                >
+                </textarea>
 
-            <div className="flex items-center justify-between mt-2">
-              <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center space-x-2">
 
-                <label htmlFor="image-upload" className="cursor-pointer">
-                  {/* <FiImage className="text-blue-500 w-5 h-5" /> */}
-                </label>
+                    <label htmlFor="image-upload" className="cursor-pointer">
+                      {/* <FiImage className="text-blue-500 w-5 h-5" /> */}
+                    </label>
 
-                <input
-                  onChange={v => formik.setFieldValue("files", v.target.files[0])}
-                  id="files"
-                  name="files"
-                  type="file"
-                  multiple />
+                    <input
+                      onChange={v => formik.setFieldValue("files", v.target.files[0])}
+                      id="files"
+                      name="files"
+                      type="file"
+                      multiple />
 
-                <FiSmile className="text-blue-500 w-5 h-5" />
-                <FiCalendar className="text-blue-500 w-5 h-5" />
+                    <FiSmile className="text-blue-500 w-5 h-5" />
+                    <FiCalendar className="text-blue-500 w-5 h-5" />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                  >
+                    Post
+                  </button>
+                </div>
               </div>
+            </form>
 
-              <button
-                type="submit"
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-              >
-                Post
-              </button>
-            </div>
-          </div>
-        </form>
+            {userlistData && userlistData?.data?.map((item) => {
+              return (
+                <>
+                  <div className="bg-white w-4/5	 p-4 mb-4 shadow-md rounded">
+                    <div className="flex items-start space-x-4">
+                      <img
+                        src="https://i.pravatar.cc/50"
+                        alt=""
+                        style={{ borderRadius: "25px" }}
+                      />
 
-        {userlistData && userlistData?.data?.map((item) => {
-          return (
-            <>
+                      <div className="flex-grow">
+                        <div className="flex items-center">
+                          <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item?.creater_Id}`)}>{item?.userName}</span>
+                          <span className="text-gray-500 mx-2">•</span>
+                          <span className="text-gray-500">{moment(item?.createdAt).fromNow()
+                          }</span>
+                        </div>
 
-              <div className="bg-white w-4/5	 p-4 mb-4 shadow-md rounded">
-                <div className="flex items-start space-x-4">
-                  <img
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                    style={{ borderRadius: "25px" }}
-                  />
 
-                  <div className="flex-grow">
-                    <div className="flex items-center">
-                      <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${item?.creater_Id}`)}>{item?.userName}</span>
-                      <span className="text-gray-500 mx-2">•</span>
-                      <span className="text-gray-500">{moment(item?.createdAt).fromNow()
-                      }</span>
-                    </div>
+                        <ReadMoreReact
+                          text={item?.message}
+                          min={80}
+                          ideal={100}
+                          max={200}
+                          readMoreText="click here to read more"
+                        />
+                        {item?.files?.map((file) => {
+                          return (<>
 
-                   
-                    <ReadMoreReact
-                      text={item?.message}
-                      min={80}
-                      ideal={100}
-                      max={200}
-                      readMoreText="click here to read more"
-                    />
-                    {item?.files?.map((file) => {
-                      return (<>
+                            <img src={`${process.env.REACT_APP_BASE_ENDPOINT}${file && file.filePath}`} />
+                          </>)
+                        })}
+                        <div className="flex items-center mt-3">
+                          <div className="flex items-center space-x-4 text-gray-500">
 
-                        <img src={`${process.env.REACT_APP_BASE_ENDPOINT}${file && file.filePath}`} />
-                      </>)
-                    })}
-                    <div className="flex items-center mt-3">
-                      <div className="flex items-center space-x-4 text-gray-500">
+                            <FiMessageSquare
+                              onClick={() => nevigate(`/app/post-single/${item._id}`)}
+                              className="w-5 h-5" />
+                            <span>10</span>
 
-                        <FiMessageSquare
-                          onClick={() => nevigate(`/app/post-single/${item._id}`)}
-                          className="w-5 h-5" />
-                        <span>10</span>
+                          </div>
+                        </div>
 
                       </div>
-                    </div>
-
+                    </div >
                   </div>
-                </div >
-              </div>
 
-            </>)
-        })}
-      </div >
+                </>)
+            })}
+          </div>
+          
+          <div className="flex flex-col gap-4 w-[20%]">
+            <div className="col-span-1 bg-white  ">
+              <img
+                src="https://i.pravatar.cc/50"
+                alt=""
+                style={{ borderRadius: "25px" }}
+              />
+              <div className="flex-grow ">
+                <div className="flex items-center">
+                  <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${'item?.creater_Id'}`)}>{"Kuldeep Sen"}</span>
+                  <span className="text-gray-500">{''}</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="col-span-1  bg-white ">
+              <img
+                src="https://i.pravatar.cc/50"
+                alt=""
+                style={{ borderRadius: "25px" }}
+              />
+              <div className="flex-grow ">
+                <div className="flex items-center">
+                  <span className="font-bold text-lg" onClick={() => nevigate(`/app/users-single/${'item?.creater_Id'}`)}>{"Kuldeep Sen"}</span>
+                  <span className="text-gray-500">{''}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          
+        </div>
+      </div>
     </>
   );
 };
