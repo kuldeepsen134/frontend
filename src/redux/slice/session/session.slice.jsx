@@ -50,7 +50,6 @@ export const logOut = createAsyncThunk('account/logOut', async (params, { reject
 })
 
 
-
 const sessionSlice = createSlice({
   name: 'session',
   initialState: initialState,

@@ -32,7 +32,13 @@ export const getFollowerList = createAsyncThunk('get-followers', async (params, 
   }
 })
 
-
+export const getFollower = createAsyncThunk('get-follower', async (params, { rejectWithValue }) => {
+  try {
+    return await instance.get(`followers/${params}`)
+  } catch (error) {
+    return rejectWithValue(error.responce)
+  }
+})
 
 const followerSlice = createSlice({
   name: 'follower',
@@ -69,6 +75,20 @@ const followerSlice = createSlice({
     }, [getFollowerList.rejected]: (state,) => {
       state.loading = true
       state.followerlistData = {}
+    },
+
+
+    [getFollower.pending]: (state,) => {
+      state.loading = false
+      state.follower = {}
+    },
+    [getFollower.fulfilled]: (state, action) => {
+      state.follower = action.payload
+      toast.success(action.payload.message);
+
+    }, [getFollower.rejected]: (state,) => {
+      state.loading = true
+      state.follower = {}
     },
 
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { joiFollower } from 'redux/slice/session/follower.slice'
+import { getFollower, joiFollower } from 'redux/slice/session/follower.slice'
 import { userListById } from 'redux/slice/session/user.slice'
 
 const userSingle = () => {
@@ -9,12 +9,17 @@ const userSingle = () => {
   const params = useParams()
 
   const [follow, setFollow] = useState('')
+  const [follower, setFollower] = useState('')
+
   const { userlistData } = useSelector((state) => state.user)
 
   useEffect(() => {
     dispatch(userListById(`${params.id}`))
-  }, [])
 
+    dispatch(getFollower(`${params.id}`)).unwrap().then((result) => {
+      setFollower(result?.data)
+    })
+  }, [])
 
 
   const member_IDs = []
@@ -34,10 +39,9 @@ const userSingle = () => {
             <div className="text-xl font-bold">User Profile</div>
 
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-              onClick={handleSubmit}
-            >
-              {follow ? 'Followed' : 'Join'}
+              className="bg-emerald-400 hover:bg-emerald-400 text-white py-2 px-4 rounded"
+              onClick={handleSubmit}>
+              {follower?.status === 'followed' ? 'Followed' : follow ? 'Followed' : 'Join'}
             </button>
           </div>
         </div>
@@ -55,7 +59,6 @@ const userSingle = () => {
                 />
                 <div>
                   <div className="font-bold text-lg ml-2">{userlistData?.data?.first_name}</div>
-                  {/* <div className="text-gray-600">@johndoe</div> */}
                 </div>
               </div>
               <div className="mt-4">

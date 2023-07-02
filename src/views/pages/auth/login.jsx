@@ -36,7 +36,7 @@ const SignIn = () => {
     }),
 
     onSubmit: (values) => {
-      dispatch(login(values)).unwrap().then(() => { nevigate(path.dashboard) })
+      dispatch(login(values)).unwrap().then((result) => { result.role==='user'? nevigate(path.dashboard): nevigate(path.admindashboard) })
     }
   })
 
@@ -53,7 +53,7 @@ const SignIn = () => {
   return (
     <>
       <div
-        className="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+        className="absolute top-0 left-0  bottom-0 leading-5 h-full w-full overflow-hidden" style={{background:'#1f2937'}}>
 
       </div>
       <div
@@ -125,7 +125,7 @@ const SignIn = () => {
                 </div>
 
                 <div>
-                  <button type="submit" className="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+                  <button type="submit" className="w-full flex justify-center bg-emerald-400  hover:bg-emerald-400 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
                     {loading ? 'loading...' : 'Signin'}
                   </button>
                 </div>

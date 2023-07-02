@@ -3,7 +3,8 @@ import { toast } from 'react-toastify'
 import instance from 'redux/axios/axios'
 
 const initialState = {
-  userlistData: {}
+  userlistData: {},
+  userData:{}
 }
 
 export const createUser = createAsyncThunk('user/create', async (params, { rejectWithValue }) => {
@@ -60,11 +61,14 @@ export const userUpdate = createAsyncThunk('user/update', async (params,) => {
 
 export const userTrush = createAsyncThunk('user/trush', async (id, { rejectWithValue }) => {
   try {
-    return await instance.get(`users/${id}`)
+    return await instance.delete(`users/${id}`)
   } catch (error) {
     return rejectWithValue(error.responce)
   }
 })
+
+
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -79,7 +83,7 @@ const userSlice = createSlice({
       // console.log(action.payload);
       state.loading = false
       state.userlistData = action.payload
-      
+
     }, [userList.rejected]: (state,) => {
       state.loading = false
       state.userList = {}
@@ -121,15 +125,28 @@ const userSlice = createSlice({
       state.userlistData = {}
     },
     [me.fulfilled]: (state, action) => {
-      // console.log(action.payload);
       state.loading = false
-      state.userlistData = action.payload
+      state.userData = action.payload
 
     }, [me.rejected]: (state,) => {
       state.loading = false
       state.userList = {}
     },
 
+    //Delete user
+    [userTrush.pending]: (state,) => {
+      state.loading = false
+      state.userlistData = {}
+    },
+    [userTrush.fulfilled]: (state, action) => {
+      state.loading = false
+      state.userlistData = action.payload
+      toast.success(action.payload.message)
+
+    }, [userTrush.rejected]: (state,) => {
+      state.loading = false
+      state.userList = {}
+    },
   }
 })
 

@@ -14,21 +14,10 @@ import { userList } from "redux/slice/session/user.slice";
 
 const TableList = () => {
 
-  // const [visibility, setVisibility] = useState({});
-
   const dispatch = useDispatch()
   const nevigate = useNavigate()
 
   const { userlistData } = useSelector((state) => state.post)
-
-  // const showHideButton = (id) => {
-
-  //   setVisibility((prevState) => ({
-  //     ...prevState,
-  //     [id]: !prevState[id],
-  //   }));
-  // };
-
 
   const [getUser, setUser] = useState([])
   const [initialData] = useState({
@@ -46,7 +35,6 @@ const TableList = () => {
         Object.keys(object).forEach(key => formData.append(key, object[key]));
         return formData;
       }
-
 
       const data = getFormData(values)
       dispatch(createPost(data,)).unwrap().then(() => {
@@ -81,10 +69,6 @@ const TableList = () => {
       setUser(result?.data)
     })
   }, [])
-
-
-
-
 
 
   return (
@@ -127,7 +111,7 @@ const TableList = () => {
 
                   <button
                     type="submit"
-                    className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                    className="px-4 py-2 text-white bg-emerald-400 rounded hover:emerald-400"
                   >
                     Post
                   </button>

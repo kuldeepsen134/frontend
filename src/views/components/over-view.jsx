@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { AiFillWindows } from "react-icons/ai";
+// import { AiFillWindows } from "react-icons/ai";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 const OverView = (data) => {
@@ -19,12 +19,12 @@ const OverView = (data) => {
                   <Card key={i} className="w-100 mx-1" responsive>
                     <Card.Body>
                       <Row>
-                        <Col xs='2'>
+                        {/* <Col xs='2'>
                           <AiFillWindows className="over-view-svg" />
-                        </Col>
+                        </Col> */}
                         <Col>
                           <p className="fw-lighter text-content-over">{item?.name}</p>
-                          <p className="text-content-over-amount">$ {item.amount}</p>
+                          <p className="text-content-over-amount">{item.amount}</p>
                           <Link to={item.path || '#'} className="link-size" style={{ color: '#06505d' }}>View all</Link>
                         </Col>
                       </Row>

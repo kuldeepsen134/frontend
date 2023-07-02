@@ -28,7 +28,7 @@ function App() {
           </Route>
 
           <Route path="/" element={<PublicLayout />}>
-            <Route index element={<Navigate to={`/login`} />} />
+            <Route index element={<Navigate to={`/home`} />} />
             {PublicRoutes.map((route, i) => {
               return (
                 <Route
@@ -38,7 +38,7 @@ function App() {
                 />
               )
             })}
-            <Route path="/*" element={<Navigate to={`/login`} />} />
+            <Route path="/*" element={<Navigate to={`/home`} />} />
           </Route>
         </Routes>
       </Suspense>

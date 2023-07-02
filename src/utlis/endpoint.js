@@ -7,6 +7,8 @@ export const path={
   // 
   
   dashboard:'/app/dashboard',
+  admindashboard:'/app/admindashboard',
+
 
 
 }

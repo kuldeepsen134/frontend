@@ -22,7 +22,9 @@ const AppHeader = () => {
           marginLeft: '30px'
         }}>
           <img src="https://i.pravatar.cc/50" alt="" style={{ borderRadius: '25px' }} />
-          <span style={{ position: 'relative', top: "50px", right: '46px' }}>{user?.first_name}</span>
+          <span style={{ position: 'relative', top: "50px", right: '46px' }}>Name: {user?.first_name}  {user?.last_name}</span>
+
+          <span style={{ position: '', top: "50px", right: '46px' }}>Contact: {user?.contact}</span>
 
         </div>
         <span style={{ position: 'absolute', top: "15px", right: '20px' }}>{user?.email}</span>

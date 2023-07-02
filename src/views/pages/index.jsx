@@ -8,9 +8,10 @@ import HelpPage from './help'
 
 import UserSingle from './userSingle'
 import PostSingle from './postSingle'
-
+import AdminDashboard from './adminDashboard'
 
 export {
+  AdminDashboard,
   Dashboard,
   UserSingle,
   History,

@@ -107,7 +107,7 @@ const SettingPage = () => {
 
           <button
             type="submit"
-            className="bg-purple-500 text-white py-2 px-2 rounded hover:bg-purple-700 transition duration-300"
+            className="text-white py-2 px-2 rounded bg-emerald-400 hover:bg-emerald-400 transition duration-300"
           >
             Save Changes
           </button>

@@ -1,31 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, } from "react-router-dom";
 
 import { BsChatRightText, BsClockHistory, BsFillHouseDoorFill, BsGear, BsPatchQuestionFill, BsShieldCheck } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { logOut } from "redux/slice/session/session.slice";
+import { me } from "redux/slice/session/user.slice";
 
 const AppSidebar = () => {
   const params = useLocation()
 
   const dispatch = useDispatch()
+  const [user, setUset] = useState({})
 
-  const menu = [{
-    name: 'Home',
-    svg: <BsFillHouseDoorFill />,
-    path: '/app/dashboard'
-  }, {
-    name: 'History',
-    svg: <BsClockHistory />,
-    path: '/app/history'
+  useEffect(() => {
+    dispatch(me()).unwrap().then((data) => {
+      setUset(data && data?.data)
+    })
+  }, [])
+  console.log('user', user);
+  const menu = [
 
-  }, {
-    name: 'Profile',
-    svg: <BsChatRightText />,
-    path: '/app/profile'
+    user.role === 'admin' ?
+      {
+        name: 'Admin dashboard',
+        svg: <BsFillHouseDoorFill />,
+        path: '/app/admindashboard'
+      } :
+      
+      {
+        name: 'Home',
+        svg: <BsFillHouseDoorFill />,
+        path: '/app/dashboard'
+      },
+    {
+      name: 'History',
+      svg: <BsClockHistory />,
+      path: '/app/history'
 
-  },
+    }, {
+      name: 'Profile',
+      svg: <BsChatRightText />,
+      path: '/app/profile'
+
+    },
   ]
   const menuBottom = [{
     name: 'Setting',
@@ -43,7 +61,6 @@ const AppSidebar = () => {
 
   },
   ]
-
 
 
   return (
@@ -65,7 +82,7 @@ const AppSidebar = () => {
         {
           menu.map((item, i) => {
             return (
-              <div key={i} className="left-menu">
+              <div key={i} className="left-menu text-sm">
                 <div className={`d-flex justify-content-start ${item?.path === params.pathname ? 'left-box-mange-active' : 'left-box-mange'}`}>
                   <span className="mt-1">
                     {item.svg}
@@ -95,9 +112,9 @@ const AppSidebar = () => {
               })
             }
 
-            <div className={`d-flex justify-content-start left-box-mange-active mt-1`}>
+            <div className={`d-flex justify-content-start text-sm left-box-mange-active mt-1`}>
               <FiLogOut className="mt-1" />
-              <a href="/login" className="mx-3" onClick={() => dispatch(logOut())}>Logout</a>
+              <a href="/home" className="mx-3" onClick={() => dispatch(logOut())}>Logout</a>
             </div>
           </div>
         </div>
